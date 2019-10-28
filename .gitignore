@@ -6,6 +6,5 @@
 *.dll
 *.pdb
 .vs/
-lesApp/Properties/
 lesApp/bin/
 lesApp/obj/
