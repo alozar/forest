@@ -7,11 +7,34 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.2*" />
+            <ColumnDefinition Width="0.8*" />
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="25" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="0.2*" />
         </Grid.RowDefinitions>
-
+        <Menu Grid.ColumnSpan="2" >
+            <MenuItem Header="Файл">
+                <MenuItem Header="Открыть" Command="{Binding OpenCommand}" />
+                <MenuItem Header="Парсить" Command="{Binding ParseCommand}" />
+                <MenuItem Header="Сохранить" Command="{Binding SaveCommand}" />
+            </MenuItem>
+        </Menu>
+        <ListBox Grid.Row="1" ItemsSource="{Binding Forests}"
+                 SelectedItem="{Binding SelectedForest}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock FontSize="18" Text="{Binding Path=Number}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Grid.Row="1" Grid.Column="1" DataContext="{Binding SelectedForest}">
+            <TextBlock Text="Выбранный выдел"  />
+            <TextBlock Text="Номер" />
+            <TextBox Text="{Binding Number, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
     </Grid>
 </Window>
