@@ -1,0 +1,11 @@
+*.suo
+*.lock
+*.ide
+*.pubxml
+*.user
+*.dll
+*.pdb
+.vs/
+lesApp/Properties/
+lesApp/bin/
+lesApp/obj/
