@@ -1,32 +1,33 @@
-﻿using lesApp.Model;
+﻿using lesApp.Model.Entities;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Json;
 using System.IO;
+using System.Collections.ObjectModel;
 
 namespace lesApp.Service
 {
     public class FileService : IFileService
     {
-        public void Save(string filename, List<Forest> phonesList)
+        public void Save(string filename, List<Quarter> quarters)
         {
             DataContractJsonSerializer jsonFormatter =
-                new DataContractJsonSerializer(typeof(List<Forest>));
+                new DataContractJsonSerializer(typeof(List<Quarter>));
             using (FileStream fs = new FileStream(filename, FileMode.Create))
             {
-                jsonFormatter.WriteObject(fs, phonesList);
+                jsonFormatter.WriteObject(fs, quarters);
             }
         }
 
-        public List<Forest> Open(string filename)
+        public List<Quarter> Open(string filename)
         {
-            List<Forest> forests = new List<Forest>();
+            var quarters = new List<Quarter>();
             DataContractJsonSerializer jsonFormatter =
-                new DataContractJsonSerializer(typeof(List<Forest>));
+                new DataContractJsonSerializer(typeof(List<Quarter>));
             using (FileStream fs = new FileStream(filename, FileMode.OpenOrCreate))
             {
-                forests = jsonFormatter.ReadObject(fs) as List<Forest>;
+                quarters = jsonFormatter.ReadObject(fs) as List<Quarter>;
             }
-            return forests;
+            return quarters;
         }
     }
 }

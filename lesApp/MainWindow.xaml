@@ -16,6 +16,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="0.2*" />
         </Grid.RowDefinitions>
+        
         <Menu Grid.ColumnSpan="2" >
             <MenuItem Header="Файл">
                 <MenuItem Header="Открыть" Command="{Binding OpenCommand}" />
@@ -23,18 +24,28 @@
                 <MenuItem Header="Сохранить" Command="{Binding SaveCommand}" />
             </MenuItem>
         </Menu>
-        <ListBox Grid.Row="1" ItemsSource="{Binding Forests}"
-                 SelectedItem="{Binding SelectedForest}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock FontSize="18" Text="{Binding Path=Number}" />
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <StackPanel Grid.Row="1" Grid.Column="1" DataContext="{Binding SelectedForest}">
-            <TextBlock Text="Выбранный выдел"  />
+        
+        <StackPanel  Grid.Row="1">
+            <ComboBox ItemsSource="{Binding Quarters}"
+                      DisplayMemberPath="Number"
+                      SelectedItem="{Binding SelectedQuarter}" />
+            <ListBox ItemsSource="{Binding SelectedQuarter.Sections}"
+                 SelectedItem="{Binding SelectedSection}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock FontSize="18" Text="{Binding Path=Number}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" DataContext="{Binding SelectedSection}">
             <TextBlock Text="Номер" />
             <TextBox Text="{Binding Number, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="Площадь" />
+            <TextBox Text="{Binding Area, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="Состав выдела" />
+            <TextBox Text="{Binding Structure, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
     </Grid>
 </Window>

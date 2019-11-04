@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using lesApp.Model;
+using lesApp.Model.Entities;
 
 namespace lesApp.Service
 {
     public interface IFileService
     {
-        List<Forest> Open(string filename);
-        void Save(string filename, List<Forest> forestList);
+        List<Quarter> Open(string filename);
+        void Save(string filename, List<Quarter> quarters);
     }
 }

@@ -57,7 +57,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\FileTypes.cs" />
+    <Compile Include="Model\Entities\Quarter.cs" />
     <Compile Include="Model\RelayCommand.cs" />
+    <Compile Include="Model\Entities\Section.cs" />
     <Compile Include="Service\DialogService.cs" />
     <Compile Include="Service\ParseService.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
@@ -76,7 +78,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Service\FileService .cs" />
-    <Compile Include="Model\Forest.cs" />
     <Compile Include="Service\IDialogService.cs" />
     <Compile Include="Service\IFileService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

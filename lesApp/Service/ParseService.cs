@@ -1,18 +1,15 @@
 ﻿using lesApp.Model;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using lesApp.Model.Entities;
 
 namespace lesApp.Service
 {
     public class ParseService
     {
-        public List<Forest> Open(string filename)
+        public List<Quarter> Open(string filename)
         {
-            List<Forest> forests = new List<Forest>();
+            var querters = new List<Quarter>();
             var lines = new List<string>();
             string line;
             using (StreamReader fs = new StreamReader(filename))
@@ -35,7 +32,7 @@ namespace lesApp.Service
                     }
                 }
             }
-            return forests;
+            return querters;
         }
     }
 }

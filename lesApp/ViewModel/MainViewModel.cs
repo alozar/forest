@@ -1,6 +1,8 @@
 ﻿using lesApp.Model;
+using lesApp.Model.Entities;
 using lesApp.Service;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -10,13 +12,14 @@ namespace lesApp.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        Forest selectedForest;
+        Quarter selectedQuarter;
+        Section selectedSection;
 
         IDialogService dialogService;
         IFileService fileService;
         ParseService parseService;
 
-        public ObservableCollection<Forest> Forests { get; set; }
+        public ObservableCollection<Quarter> Quarters { get; set; }
 
         // команда сохранения файла
         private RelayCommand saveCommand;
@@ -31,7 +34,7 @@ namespace lesApp.ViewModel
                       {
                           if (dialogService.SaveFileDialog() == true)
                           {
-                              fileService.Save(dialogService.FilePath, Forests.ToList());
+                              fileService.Save(dialogService.FilePath, Quarters.ToList());
                               dialogService.ShowMessage("Файл сохранен");
                           }
                       }
@@ -56,10 +59,12 @@ namespace lesApp.ViewModel
                       {
                           if (dialogService.OpenFileDialog(FileTypes.FRJ) == true)
                           {
-                              var forests = fileService.Open(dialogService.FilePath);
-                              Forests.Clear();
-                              foreach (var p in forests)
-                                  Forests.Add(p);
+                              var quarters = fileService.Open(dialogService.FilePath);
+                              Quarters.Clear();
+                              foreach (var q in quarters)
+                                  Quarters.Add(q);
+                              SelectedQuarter = Quarters.FirstOrDefault();
+                              SelectedSection = SelectedQuarter.Sections.FirstOrDefault();
                               dialogService.ShowMessage("Файл открыт");
                           }
                       }
@@ -84,10 +89,10 @@ namespace lesApp.ViewModel
                       {
                           if (dialogService.OpenFileDialog(FileTypes.TXT) == true)
                           {
-                              var forests = parseService.Open(dialogService.FilePath);
-                              Forests.Clear();
-                              foreach (var p in forests)
-                                  Forests.Add(p);
+                              var quarters = parseService.Open(dialogService.FilePath);
+                              Quarters.Clear();
+                              foreach (var p in quarters)
+                                  Quarters.Add(p);
                               dialogService.ShowMessage("Файл распарсен");
                           }
                       }
@@ -99,13 +104,23 @@ namespace lesApp.ViewModel
             }
         }
 
-        public Forest SelectedForest
+        public Quarter SelectedQuarter
         {
-            get { return selectedForest; }
+            get { return selectedQuarter; }
             set
             {
-                selectedForest = value;
-                OnPropertyChanged("SelectedForest");
+                selectedQuarter = value;
+                OnPropertyChanged("SelectedQuarter");
+            }
+
+        }
+        public Section SelectedSection
+        {
+            get { return selectedSection; }
+            set
+            {
+                selectedSection = value;
+                OnPropertyChanged("SelectedSection");
             }
         }
 
@@ -114,26 +129,68 @@ namespace lesApp.ViewModel
             dialogService = new DialogService();
             fileService = new FileService();
             parseService = new ParseService();
-
-            Forests = new ObservableCollection<Forest>
-            {
-                new Forest {
-                    Number = 1,
-                    Area = 27.6,
-                    Structure = "6С3Л1Б",
-                    Fullness = 0.6,
-                    StockHectare = 260,
-                    StockTotal = 7176
-                },
-                new Forest {
-                    Number = 2,
-                    Area = 5.3,
-                    Structure = "7Б2С1Л",
-                    Fullness = 0.7,
-                    StockHectare = 110,
-                    StockTotal = 583
-                },
-            };
+            Quarters = new ObservableCollection<Quarter>();
+            //var quarter1 = new Quarter
+            //{
+            //    Number = 1,
+            //    Sections = new List<Section>
+            //    {
+            //        new Section {
+            //            Number = 1,
+            //            Area = 27.6,
+            //            Structure = "6С3Л1Б",
+            //            Fullness = 0.6,
+            //            StockHectare = 260,
+            //            StockTotal = 7176
+            //        },
+            //        new Section {
+            //            Number = 2,
+            //            Area = 5.3,
+            //            Structure = "7Б2С1Л",
+            //            Fullness = 0.7,
+            //            StockHectare = 110,
+            //            StockTotal = 583
+            //        },
+            //        new Section
+            //        {
+            //            Number = 40,
+            //            Area = 0.4,
+            //            Structure = "ручьи"
+            //        }
+            //    }
+            //};
+            //var quarter3 = new Quarter
+            //{
+            //    Number = 3,
+            //    Sections = new List<Section>
+            //    {
+            //        new Section {
+            //            Number = 1,
+            //            Area = 12.2,
+            //            Structure = "9С3Л",
+            //            Fullness = 0.7,
+            //            StockHectare = 224,
+            //            StockTotal = 8105
+            //        },
+            //        new Section {
+            //            Number = 2,
+            //            Area = 3.9,
+            //            Structure = "1Б1Л7С",
+            //            Fullness = 0.5,
+            //            StockHectare = 190,
+            //            StockTotal = 622
+            //        },
+            //        new Section
+            //        {
+            //            Number = 15,
+            //            Area = 0.7,
+            //            Structure = "профиль"
+            //        }
+            //    }
+            //};
+            //Quarters.Add(quarter1);
+            //Quarters.Add(quarter3);
+            //SelectedQuarter = Quarters.FirstOrDefault();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
