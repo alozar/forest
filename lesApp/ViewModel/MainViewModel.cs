@@ -141,7 +141,8 @@ namespace lesApp.ViewModel
             //            Structure = "6С3Л1Б",
             //            Fullness = 0.6,
             //            StockHectare = 260,
-            //            StockTotal = 7176
+            //            StockTotal = 7176,
+            //            IsForest = true
             //        },
             //        new Section {
             //            Number = 2,
@@ -149,13 +150,15 @@ namespace lesApp.ViewModel
             //            Structure = "7Б2С1Л",
             //            Fullness = 0.7,
             //            StockHectare = 110,
-            //            StockTotal = 583
+            //            StockTotal = 583,
+            //            IsForest = true
             //        },
             //        new Section
             //        {
             //            Number = 40,
             //            Area = 0.4,
-            //            Structure = "ручьи"
+            //            Structure = "ручьи",
+            //            IsForest = false
             //        }
             //    }
             //};
@@ -170,7 +173,8 @@ namespace lesApp.ViewModel
             //            Structure = "9С3Л",
             //            Fullness = 0.7,
             //            StockHectare = 224,
-            //            StockTotal = 8105
+            //            StockTotal = 8105,
+            //            IsForest = true
             //        },
             //        new Section {
             //            Number = 2,
@@ -178,13 +182,15 @@ namespace lesApp.ViewModel
             //            Structure = "1Б1Л7С",
             //            Fullness = 0.5,
             //            StockHectare = 190,
-            //            StockTotal = 622
+            //            StockTotal = 622,
+            //            IsForest = true
             //        },
             //        new Section
             //        {
             //            Number = 15,
             //            Area = 0.7,
-            //            Structure = "профиль"
+            //            Structure = "профиль",
+            //            IsForest = false
             //        }
             //    }
             //};

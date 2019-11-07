@@ -8,7 +8,12 @@ using System.Threading.Tasks;
 namespace lesApp.Model.Entities
 {
     public class Section
-    {        
+    {
+        public Section() { }
+        public Section(int number)
+        {
+            Number = number;
+        }
         public int Number { get; set; } //номер выдела
         public double Area { get; set; } //площадь
         public string Structure { get; set; } //состав выдела

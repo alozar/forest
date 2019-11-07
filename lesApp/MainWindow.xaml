@@ -6,12 +6,16 @@
         xmlns:local="clr-namespace:lesApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.2*" />
             <ColumnDefinition Width="0.8*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="25" />
             <RowDefinition Height="25" />
             <RowDefinition Height="*" />
             <RowDefinition Height="0.2*" />
@@ -24,28 +28,36 @@
                 <MenuItem Header="Сохранить" Command="{Binding SaveCommand}" />
             </MenuItem>
         </Menu>
-        
-        <StackPanel  Grid.Row="1">
-            <ComboBox ItemsSource="{Binding Quarters}"
-                      DisplayMemberPath="Number"
-                      SelectedItem="{Binding SelectedQuarter}" />
+
+        <ComboBox Grid.Row="1" ItemsSource="{Binding Quarters}"
+                  DisplayMemberPath="Number"
+                  SelectedItem="{Binding SelectedQuarter}" />
+        <ScrollViewer Grid.Row="2">
             <ListBox ItemsSource="{Binding SelectedQuarter.Sections}"
-                 SelectedItem="{Binding SelectedSection}">
+                     SelectedItem="{Binding SelectedSection}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock FontSize="18" Text="{Binding Path=Number}" />
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-        </StackPanel>
+        </ScrollViewer>
 
-        <StackPanel Grid.Row="1" Grid.Column="1" DataContext="{Binding SelectedSection}">
+        <StackPanel Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" DataContext="{Binding SelectedSection}">
             <TextBlock Text="Номер" />
             <TextBox Text="{Binding Number, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Text="Площадь" />
             <TextBox Text="{Binding Area, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Text="Состав выдела" />
             <TextBox Text="{Binding Structure, UpdateSourceTrigger=PropertyChanged}" />
+            <StackPanel Visibility="{Binding Path=IsForest, Converter={StaticResource BoolToVisConverter} }">
+                <TextBlock Text="Полнота" />
+                <TextBox Text="{Binding Fullness, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Text="Запас леса на га" />
+                <TextBox Text="{Binding StockHectare, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Text="Запас леса общий" />
+                <TextBox Text="{Binding StockTotal, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>
