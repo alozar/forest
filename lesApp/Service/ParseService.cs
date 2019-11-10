@@ -53,8 +53,38 @@ namespace lesApp.Service
 
         private Section GetSection(int numSection, string[] sectionArrParam)
         {
+            var arrParam = sectionArrParam.Where(p => p != "").ToArray();
             var section = new Section(numSection);
-            
+
+            double area;
+            if (double.TryParse(arrParam[1],out area))
+            {
+                section.Area = area;
+            }
+            section.Structure = arrParam[2];
+
+            if (arrParam.Length < 14)
+            {
+                section.IsForest = false;
+                return section;
+            }
+
+            double fullness; //полнота
+            if (double.TryParse(arrParam[12], out fullness))
+            {
+                section.Fullness = fullness;
+            }
+            int stockHectare; //запас леса на га
+            if (int.TryParse(arrParam[13], out stockHectare))
+            {
+                section.StockHectare = stockHectare;
+            }
+            int stockTotal; //запас леса общий
+            if (int.TryParse(arrParam[14], out stockTotal))
+            {
+                section.StockTotal = stockTotal;
+            }
+            section.IsForest = true;
             return section;
         }
     }

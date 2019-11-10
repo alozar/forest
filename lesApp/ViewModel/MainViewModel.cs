@@ -14,6 +14,7 @@ namespace lesApp.ViewModel
     {
         Quarter selectedQuarter;
         Section selectedSection;
+        double square;
 
         IDialogService dialogService;
         IFileService fileService;
@@ -104,6 +105,28 @@ namespace lesApp.ViewModel
             }
         }
 
+        // команда вычисления площади
+        private RelayCommand calculateCommand;
+        public RelayCommand СalculateCommand
+        {
+            get
+            {
+                return calculateCommand ??
+                  (calculateCommand = new RelayCommand(obj =>
+                  {
+                      try
+                      {
+                          double sq = Square;
+                          dialogService.ShowMessage("Площадь посчитана");
+                      }
+                      catch (Exception ex)
+                      {
+                          dialogService.ShowMessage(ex.Message);
+                      }
+                  }));
+            }
+        }
+
         public Quarter SelectedQuarter
         {
             get { return selectedQuarter; }
@@ -121,6 +144,15 @@ namespace lesApp.ViewModel
             {
                 selectedSection = value;
                 OnPropertyChanged("SelectedSection");
+            }
+        }
+        public double Square
+        {
+            get { return square; }
+            set
+            {
+                square = value;
+                OnPropertyChanged("Square");
             }
         }
 
