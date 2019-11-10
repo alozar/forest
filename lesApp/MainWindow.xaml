@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:lesApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Редактор тексационных файлов" Height="500" Width="550" ResizeMode="NoResize">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
     </Window.Resources>
@@ -17,10 +17,10 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="25" />
             <RowDefinition Height="25" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="0.2*" />
+            <RowDefinition Height="0.6*" />
+            <RowDefinition Height="0.4*" />
         </Grid.RowDefinitions>
-        
+
         <Menu Grid.ColumnSpan="2" >
             <MenuItem Header="Файл">
                 <MenuItem Header="Открыть" Command="{Binding OpenCommand}" />
@@ -45,37 +45,35 @@
 
         <StackPanel Grid.Row="1" Grid.Column="1" Grid.RowSpan="2">
             <StackPanel DataContext="{Binding SelectedSection}">
-                <TextBlock Text="Номер" />
+                <TextBlock Text="Номер:"/>
                 <TextBox Text="{Binding Number, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBlock Text="Площадь" />
-                <TextBox Text="{Binding Area, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBlock Text="Состав выдела" />
+                <TextBlock Text="Площадь:" />
+                <TextBox Text="{Binding Area, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=0.0#####}" />
+                <TextBlock Text="Состав выдела:" />
                 <TextBox Text="{Binding Structure, UpdateSourceTrigger=PropertyChanged}" />
                 <StackPanel Visibility="{Binding Path=IsForest, Converter={StaticResource BoolToVisConverter} }">
-                    <TextBlock Text="Полнота" />
-                    <TextBox Text="{Binding Fullness, UpdateSourceTrigger=PropertyChanged}" />
-                    <TextBlock Text="Запас леса на га" />
+                    <TextBlock Text="Полнота:" />
+                    <TextBox Text="{Binding Fullness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=0.0#####}" />
+                    <TextBlock Text="Запас леса на га:" />
                     <TextBox Text="{Binding StockHectare, UpdateSourceTrigger=PropertyChanged}" />
-                    <TextBlock Text="Запас леса общий" />
+                    <TextBlock Text="Запас леса общий:" />
                     <TextBox Text="{Binding StockTotal, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
             </StackPanel>
-            <Grid>
+            <Grid Margin="0,10,0,0"
+                  Visibility="{Binding Path=SelectedSection.IsForest, Converter={StaticResource BoolToVisConverter} }">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <TextBlock Text="Введите площадь:" />
-                <TextBox Grid.Column="1" Text="{Binding Square, UpdateSourceTrigger=PropertyChanged}"/>
-                <Button Grid.Column="2" Grid.RowSpan="2" Command="{Binding СalculateCommand}">Вычислить</Button>
-                <TextBlock Text="Результат:" Grid.Row="1"/>
-                <TextBox  Grid.Row="1" Grid.Column="1"/>
+                <TextBlock Text="Введите площадь:"/>
+                <TextBox Grid.Column="1" Text="{Binding Square, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=0.0#####}"/>
+                <Button Grid.Column="2" Command="{Binding СalculateCommand}">Вычислить</Button>
             </Grid>
         </StackPanel>
+        <DataGrid Grid.Row="3" Grid.ColumnSpan="2"
+                  AutoGenerateColumns="True" ItemsSource="{Binding Result}">
+        </DataGrid>
     </Grid>
 </Window>
