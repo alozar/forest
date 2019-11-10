@@ -62,6 +62,7 @@
     <Compile Include="Model\Entities\Section.cs" />
     <Compile Include="Service\DialogService.cs" />
     <Compile Include="Service\ParseService.cs" />
+    <Compile Include="Service\СalculateService.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

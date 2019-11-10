@@ -116,8 +116,7 @@ namespace lesApp.ViewModel
                   {
                       try
                       {
-                          double sq = Square;
-                          dialogService.ShowMessage("Площадь посчитана");
+                          Result = СalculateService.GetResult(SelectedSection, Square);
                       }
                       catch (Exception ex)
                       {
@@ -156,79 +155,23 @@ namespace lesApp.ViewModel
             }
         }
 
+        public Dictionary<string, double> result;
+        public Dictionary<string, double> Result
+        {
+            get { return result; }
+            set
+            {
+                result = value;
+                OnPropertyChanged("Result");
+            }
+        }
+
         public MainViewModel()
         {
             dialogService = new DialogService();
             fileService = new FileService();
             parseService = new ParseService();
             Quarters = new ObservableCollection<Quarter>();
-            //var quarter1 = new Quarter
-            //{
-            //    Number = 1,
-            //    Sections = new List<Section>
-            //    {
-            //        new Section {
-            //            Number = 1,
-            //            Area = 27.6,
-            //            Structure = "6С3Л1Б",
-            //            Fullness = 0.6,
-            //            StockHectare = 260,
-            //            StockTotal = 7176,
-            //            IsForest = true
-            //        },
-            //        new Section {
-            //            Number = 2,
-            //            Area = 5.3,
-            //            Structure = "7Б2С1Л",
-            //            Fullness = 0.7,
-            //            StockHectare = 110,
-            //            StockTotal = 583,
-            //            IsForest = true
-            //        },
-            //        new Section
-            //        {
-            //            Number = 40,
-            //            Area = 0.4,
-            //            Structure = "ручьи",
-            //            IsForest = false
-            //        }
-            //    }
-            //};
-            //var quarter3 = new Quarter
-            //{
-            //    Number = 3,
-            //    Sections = new List<Section>
-            //    {
-            //        new Section {
-            //            Number = 1,
-            //            Area = 12.2,
-            //            Structure = "9С3Л",
-            //            Fullness = 0.7,
-            //            StockHectare = 224,
-            //            StockTotal = 8105,
-            //            IsForest = true
-            //        },
-            //        new Section {
-            //            Number = 2,
-            //            Area = 3.9,
-            //            Structure = "1Б1Л7С",
-            //            Fullness = 0.5,
-            //            StockHectare = 190,
-            //            StockTotal = 622,
-            //            IsForest = true
-            //        },
-            //        new Section
-            //        {
-            //            Number = 15,
-            //            Area = 0.7,
-            //            Structure = "профиль",
-            //            IsForest = false
-            //        }
-            //    }
-            //};
-            //Quarters.Add(quarter1);
-            //Quarters.Add(quarter3);
-            //SelectedQuarter = Quarters.FirstOrDefault();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
