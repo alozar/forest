@@ -5,6 +5,9 @@
 *.user
 *.dll
 *.pdb
-.vs/
-lesApp/bin/
-lesApp/obj/
+lesApp/.vs/
+lesApp/lesApp/bin/
+lesApp/lesApp/obj/
+lesAppWin32/.vs/
+lesAppWin32/lesAppWin32/bin/
+lesAppWin32/lesAppWin32/obj/
